@@ -3,11 +3,11 @@ var ratingHandler={
     databaseHandler.db.transaction(
         function(tx){
             tx.executeSql(
-                "insert into product(name, type, date, average, serviceRate, cleanRate, foodRate, namerp, noterp) values(?, ?, ?, ?, ?, ?, ?, ?, ?)",
+                "insert into rating(name, type, date, average, serviceRate, cleanRate, foodRate, namerp, noterp) values(?, ?, ?, ?, ?, ?, ?, ?, ?)",
                 [name, type, date, average, serviceRate, cleanRate, foodRate, namerp, noterp ],
                 function(tx, results){},
                 function(tx, error){
-                    console.log("add product error: " + error.message);
+                    console.log("add rating error: " + error.message);
                 }
             );
         },
@@ -19,25 +19,41 @@ loadRating: function(displayListRating){
     databaseHandler.db.readTransaction(
         function(tx){
             tx.executeSql(
-                "select * from product",
+                "select * from rating",
                 [],
                 function(tx, results){
                     //Do the display
                     displayListRating(results);
                 },
                 function(tx, error){//TODO: Alert the message to user
-                    console.log("Error while selecting the products" + error.message);
+                    console.log("Error while selecting the ratings" + error.message);
                 }
             );
         }
     );
 },
-
+loadRatingDetail: function(_id , displayDetailRating){
+    databaseHandler.db.readTransaction(
+        function(tx){
+            tx.executeSql(
+                "select * from rating where _id=?",
+                [_id],
+                function(tx, results){
+                    //Do the display
+                    displayDetailRating(results);
+                },
+                function(tx, error){//TODO: Alert the message to user
+                    console.log("Error while selecting the ratings" + error.message);
+                }
+            );
+        }
+    );
+},
 deleteRating:function(_id){
     databaseHandler.db.transaction(
         function(tx){
             tx.executeSql(
-                "delete from product where _id = ?",
+                "delete from rating where _id = ?",
                 [_id],
                 function(tx, results){},
                 function(tx, error){//TODO: Could make an alert for this one.
@@ -51,11 +67,11 @@ updateNoteRating: function(_id, newNoterp){
     databaseHandler.db.transaction(
         function(tx){
             tx.executeSql(
-                "update product set noterp=? where _id = ?",
+                "update rating set noterp=? where _id = ?",
                 [ newNoterp , _id],
                 function(tx, result){},
                 function(tx, error){//TODO: alert/display this message to user
-                    console.log("Error updating product" + error.message);
+                    console.log("Error updating rating" + error.message);
                 }
             );
         }

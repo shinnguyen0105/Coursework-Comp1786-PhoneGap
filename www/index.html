@@ -8,6 +8,13 @@
     <!-- Include the jQuery library -->
     <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
     <!-- Include the jQuery Mobile library -->
+    <!-- <script>
+        $(document).bind('mobileinit',function(){
+            $.mobile.changePage.defaults.changeHash = false;
+            $.mobile.hashListeningEnabled = false;
+            $.mobile.pushStateEnabled = false;
+        });
+    </script>  -->
     <script src="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
     <script type="text/javascript" src="cordova.js"></script>
     <script type="text/javascript" src="js/databaseHandler.js"></script>
@@ -17,12 +24,11 @@
 </head>
 <body>
 <div data-role="page" id="addrate">
-    <div data-role="navbar" data-position="fixed">
-        <ul>
-            <li><a href="#addrate" class="ui-btn-active ui-shadow ui-corner-all ui-btn-icon-right ui-icon-plus">Add Rate</a></li>
-            <li><a href="#listrate" class="ui-shadow ui-corner-all ui-btn-icon-right ui-icon-grid">List rate</a></li>
-        </ul>
+
+    <div data-role="header" data-position="fixed">
+        <h1>Rating Restaurant</h1>
     </div>
+
     <div data-role="main" class="ui-content">
         <form id="main-form">
             <div class="ui-field-contain">
@@ -77,18 +83,24 @@
                    id="btnAdd" onclick="addRating()">Add</a>
             </div>
         </form>
+
+        <div data-role="footer" data-position="fixed" >
+            <div data-role="navbar" >
+                <ul>
+                    <li><a href="#" class="ui-btn-active ui-state-persist ui-shadow ui-corner-all ui-btn-icon-top ui-icon-plus">Add Rate</a></li>
+                    <li><a href="#listrate" class="ui-shadow ui-corner-all ui-btn-icon-top ui-icon-grid">List rate</a></li>
+                </ul>
+            </div>
+        </div>
     </div>
-    <div data-role="footer" data-position="fixed">
-        <h1>Rating Restaurant</h1>
-    </div>
+    
+
 </div>
 <div data-role="page" id="listrate">
-    <div data-role="navbar" data-position="fixed">
-        <ul>
-            <li><a href="#addrate" class=" ui-shadow ui-corner-all ui-btn-icon-right ui-icon-plus" >Add Rate</a></li>
-            <li><a href="#listrate" class="ui-btn-active  ui-shadow ui-corner-all ui-btn-icon-right ui-icon-grid">List rate</a></li>
-        </ul>
+    <div data-role="header" data-position="fixed">
+        <h1>Rating Restaurant</h1>
     </div>
+    
     <div data-role="main" class="ui-content">
         <form class="ui-filterable">
             <input data-type="search" id="txtKeyword"/>
@@ -99,7 +111,7 @@
             id="lstRatings"
         >
         </ul>
-        <div data-role="popup" id="popupUpdateDelete">
+        <!-- <div data-role="popup" id="popupUpdateDelete">
             <div data-role="header">
                 <a class="ui-btn ui-icon-delete ui-btn-icon-notext ui-corner-all" data-rel="back"></a>
                 <h1>Options</h1>
@@ -112,43 +124,56 @@
                    href="#updatedialog"
                 >Update</a>
             </div>
+        </div> -->
+    </div>
+    <div data-role="footer" data-position="fixed">
+        <div data-role="navbar">
+            <ul>
+                <li><a href="#addrate" class=" ui-shadow ui-corner-all ui-btn-icon-top ui-icon-plus" >Add Rate</a></li>
+                <li><a href="#" class="ui-btn-active ui-state-persist ui-shadow ui-corner-all ui-btn-icon-top ui-icon-grid">List rate</a></li>
+            </ul>
         </div>
     </div>
-    <div data-role="footer" data-position="fixed">
-        <h1>Rating Restaurant</h1>
-    </div>
 </div>
 
 
-<div data-role="page" id="detailrating">
-    <div data-role="navbar" data-position="fixed">
-        <h3>detail</h3>
-    </div>
-    <div data-role="main" class="ui-content">
-       <h3>abc</h3>
-    </div>
-    <div data-role="footer" data-position="fixed">
-        <h1>Rating Restaurant</h1>
-    </div>
-</div>
-
-
-<div data-role="dialog" id="updatedialog">
+<div data-role="page" id="updatedialog">
     <div data-role="header">
+        <a href="#listrate" class="ui-btn ui-shadow ui-corner-all ui-icon-back ui-btn-icon-notext ui-btn-inline"></a>
         <h1>Update product</h1>
+        <a href="#listrate" style="background: rgb(0, 110, 255); color: white" id="btnUpdate" onclick="updateNoteRating()" >save</a>
     </div>
     <div data-role="main" class="ui-content">
         <form>
             <div class="ui-field-contain">
-                <label for="txtNewName">Name:</label>
-                <input type="text" id="txtNewName" data-clear-btn="true" disabled/>
-
-                <label for="txtNewNotes">Notes:</label>
+                <div>
+                    <label for="txtNameU" style="text-align: right; clear: both; float: left; margin-right: 15px; margin-top: 2px;">Restaurant Name:</label>
+                <!-- <input type="text" id="txtNameU"  disabled/> -->
+                    <h3 id="txtNameU"></h3>
+                </div>
+                <label for="txtTypeU" style="text-align: right; clear: both; float: left; margin-right: 15px; margin-top: 2px;">Restaurant Type:</label>
+                <h3 id="txtTypeU"></h3>
+                <label for="txtdateU" style="text-align: right; clear: both; float: left; margin-right: 15px; margin-top: 2px;">Date time:</label>
+                <h3 id="txtdateU"></h3>
+                <label for="txtAverageU" style="text-align: right; clear: both; float: left; margin-right: 15px; margin-top: 2px;">Average meal price per person:</label>
+                <h3 id="txtAverageU" > </h3>
+                <label for="txtAverageRatingU" style="text-align: right; clear: both; float: left; margin-right: 15px; margin-top: 2px;">Average rating:</label>
+                <h3  id="txtAverageRatingU"></h3>
+                <label for="txtServiceU" style="text-align: right; clear: both; float: left; margin-right: 15px; margin-top: 2px;">Service rating:</label>
+                <h3 id="txtServiceU" ></h3>
+                <label for="txtCleanlinessU" style="text-align: right; clear: both; float: left; margin-right: 15px; margin-top: 2px;">Cleanliness rating:</label>
+                <h3 id="txtCleanlinessU"></h3>
+                <label for="txtFoodU" style="text-align: right; clear: both; float: left; margin-right: 15px; margin-top: 2px;">Food quality rating:</label>
+                <h3 id="txtFoodU"> </h3>
+                <label for="txtNamerpU" style="text-align: right; clear: both; float: left; margin-right: 15px; margin-top: 2px;">Name of reporter:</label>
+                <h3 id="txtNamerpU"> </h3>
+                <label for="txtNewNotes" >Notes:</label>
                 <input type="text" id="txtNewNotes" data-clear-btn="true"/>
 
                 <label for="btnUpdate"></label>
-                <a class="ui-btn ui-icon-plus ui-btn-icon-left"
-                   id="btnUpdate" onclick="updateProduct()">Update</a>
+                <br/>
+                <a class="ui-btn ui-icon-delete ui-btn-icon-left"
+                   id="btnUpdate" style="background: rgb(255, 0, 0); color: white;" onclick="deleteRating()">Delete</a>
             </div>
         </form>
     </div>

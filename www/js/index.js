@@ -1,6 +1,7 @@
 $(document).on("ready", function(){
     databaseHandler.createDatabase();
 });
+
 function addRating(){
     var name = $("#txtName").val();
     var type = $("#RestaurantType :radio:checked").val();
@@ -82,7 +83,7 @@ function displayListRating(results){
     lstRatings.empty();//Clean the old data before adding.
     for(var i = 0; i< length; i++){
         var item = results.rows.item(i);
-        var a = $("<a />");
+        var a = $("<a href='#updatedialog' />");
         var h3 = $("<h3 />").text("Restaurant Name: ");
         var h41 = $("<h4 />").text("Restaurant Type: ");
         // var h42 = $("<h4 />").text("Date time: ");
@@ -93,10 +94,9 @@ function displayListRating(results){
         var h444 = $("<h4 />").text("Average rating: ");
         var h47 = $("<h4 />").text("Name of reporter: ");
         // var p2 = $("<h4 />").text("Notes: ");
-        // var p = $("<p />").text("Id: ");
+        var p = $("<h2 />").text("Id: ");
+
         var averageRate = ((average(item.serviceRate) + average(item.cleanRate) + average(item.foodRate))/3).toFixed(2);
-
-
         var spanName = $("<span />").text(item.name);
         spanName.attr("name", "name");
         var spandType = $("<span />").text(item.type);
@@ -116,8 +116,8 @@ function displayListRating(results){
         spandNamerp.attr("name", "namerp");
         // var spandNoterp = $("<span />").text(item.noterp);
         // spandNoterp.attr("name", "noterp");
-        // var spanId = $("<span />").text(item._id);
-        // spanId.attr("name", "_id");
+        var spanId = $("<span />").text(item._id);
+        spanId.attr("name", "_id");
 
         h3.append(spanName);
         h41.append(spandType);
@@ -129,8 +129,9 @@ function displayListRating(results){
         h444.append(spandAverageRate)
         h47.append(spandNamerp);
         // p2.append(spandNoterp);
-        // p.append(spanId);
+        p.append(spanId);
 
+        a.append(p);
         a.append(h3);
         a.append(h41);
         // a.append(h42);
@@ -140,7 +141,7 @@ function displayListRating(results){
         // a.append(h46);
         a.append(h444);
         a.append(h47);
-        // a.append(p);
+        
         // a.append(p2);
 
         var li = $("<li/>");
@@ -151,34 +152,54 @@ function displayListRating(results){
     lstRatings.listview("refresh");
     lstRatings.on("tap", "li", function(){
         rateMessageState.id = $(this).find("[name='_id']").text();
-        rateMessageState.name = $(this).find("[name='name']").text();
-        rateMessageState.type = $(this).find("[name='type']").text();
+
+        ratingHandler.loadRatingDetail(rateMessageState.id , displayDetailRating);
+        // rateMessageState.name = $(this).find("[name='name']").text();
+        // rateMessageState.type = $(this).find("[name='type']").text();
+        // rateMessageState.date =  $(this).find("[name='date']").text();
         //Set event for the list item
-        $("#popupUpdateDelete").popup("open");
+        // $("#popupUpdateDelete").popup("open");
     });
+}
+
+function displayDetailRating(results) {
+    console.log(results);
+    rateMessageState.name = results.rows[0].name;
+    rateMessageState.namerp = results.rows[0].namerp;
+    $("#txtNameU").text(results.rows[0].name).val();
+    $("#txtTypeU").text(results.rows[0].type).val();
+    $("#txtdateU").text(results.rows[0].date).val();
+    $("#txtAverageU").text(results.rows[0].average).val();
+    var averageRate = ((average(results.rows[0].serviceRate) + average(results.rows[0].cleanRate) + average(results.rows[0].foodRate))/3).toFixed(2);
+    $("#txtAverageRatingU").text(averageRate).val();
+    $("#txtServiceU").text(results.rows[0].serviceRate).val();
+    $("#txtCleanlinessU").text(results.rows[0].cleanRate).val();
+    $("#txtFoodU").text(results.rows[0].foodRate).val();
+    $("#txtNamerpU").text(results.rows[0].namerp).val();
+    $("#txtNewNotes").val(results.rows[0].noterp);
+    //  rateMessageState.date = results.rows[0].date;
+    //  rateMessageState.noterp = results.rows[0].noterp;
 }
 
 $(document).on("pagebeforeshow", "#listrate", function(){
     ratingHandler.loadRating(displayListRating);
 });
-
 function deleteRating(){
-    var r = confirm("Delete product\nName: "+ rateMessageState.name +
+    var r = confirm("Delete Rating\nName: "+ rateMessageState.name +
                     "\nName of Reporter: " +  rateMessageState.namerp);
     if(r==true){
         ratingHandler.deleteRating(rateMessageState.id);
         ratingHandler.loadRating(displayListRating);
     }
-    $("#popupUpdateDelete").popup("close");
+    window.history.back();
 }
+// $(document).on("pagebeforeshow", "#updatedialog", function(){
+//     $("#txtNewName").val(rateMessageState.name);
+//     $("#txtNewNotes").val(rateMessageState.noterp);
 
-$(document).on("pagebeforeshow", "#updatedialog", function(){
-    $("#txtNewName").val(rateMessageState.name);
-    $("#txtNewNotes").val(rateMessageState.noterp);
-});
-
+// });
 function updateNoteRating(){
     var newNoterp = $("#txtNewNotes").val();
     ratingHandler.updateNoteRating(rateMessageState.id, newNoterp );
-    $("#updatedialog").dialog("close");
+    window.history.back();
 }
