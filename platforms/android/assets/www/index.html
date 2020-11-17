@@ -1,49 +1,182 @@
 <!DOCTYPE html>
-<!--
-    Licensed to the Apache Software Foundation (ASF) under one
-    or more contributor license agreements.  See the NOTICE file
-    distributed with this work for additional information
-    regarding copyright ownership.  The ASF licenses this file
-    to you under the Apache License, Version 2.0 (the
-    "License"); you may not use this file except in compliance
-    with the License.  You may obtain a copy of the License at
-
-    http://www.apache.org/licenses/LICENSE-2.0
-
-    Unless required by applicable law or agreed to in writing,
-    software distributed under the License is distributed on an
-    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-     KIND, either express or implied.  See the License for the
-    specific language governing permissions and limitations
-    under the License.
--->
 <html>
-    <head>
-        <!--
-        Customize this policy to fit your own app's needs. For more guidance, see:
-            https://github.com/apache/cordova-plugin-whitelist/blob/master/README.md#content-security-policy
-        Some notes:
-            * gap: is required only on iOS (when using UIWebView) and is needed for JS->native communication
-            * https://ssl.gstatic.com is required only on Android and is needed for TalkBack to function properly
-            * Disables use of inline scripts in order to mitigate risk of XSS vulnerabilities. To change this:
-                * Enable inline JS: add 'unsafe-inline' to default-src
-        -->
-        <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *; img-src 'self' data: content:;">
-        <meta name="format-detection" content="telephone=no">
-        <meta name="msapplication-tap-highlight" content="no">
-        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
-        <link rel="stylesheet" type="text/css" href="css/index.css">
-        <title>Hello World</title>
-    </head>
-    <body>
-        <div class="app">
-            <h1>Apache Cordova</h1>
-            <div id="deviceready" class="blink">
-                <p class="event listening">Connecting to Device</p>
-                <p class="event received">Device is Ready</p>
+<head>
+    <!-- Include meta tag to ensure proper rendering and touch zooming -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Include jQuery Mobile stylesheets -->
+    <link rel="stylesheet" href="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css">
+    <!-- Include the jQuery library -->
+    <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+    <!-- Include the jQuery Mobile library -->
+    <!-- <script>
+        $(document).bind('mobileinit',function(){
+            $.mobile.changePage.defaults.changeHash = false;
+            $.mobile.hashListeningEnabled = false;
+            $.mobile.pushStateEnabled = false;
+        });
+    </script>  -->
+    <script src="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+    <script type="text/javascript" src="cordova.js"></script>
+    <script type="text/javascript" src="js/databaseHandler.js"></script>
+    <script type="text/javascript" src="js/ratingHandler.js"></script>
+    <script type="text/javascript" src="js/index.js"></script>
+    <title>ResRate</title>
+</head>
+<body>
+<div data-role="page" id="addrate">
+
+    <div data-role="header" data-position="fixed">
+        <h1>Rating Restaurant</h1>
+    </div>
+
+    <div data-role="main" class="ui-content">
+        <form id="main-form">
+            <div class="ui-field-contain">
+                <label for="txtName">Restaurant Name:</label>
+                <input type="text" id="txtName" data-clear-btn="true"/>
+
+                <fieldset id="RestaurantType" data-role="controlgroup" data-type="horizontal" class="ui-controlgroup ui-controlgroup-horizontal ui-corner-all">
+                    <legend>Restaurant type:</legend>
+                        <label for="radio-choice-h-1a" class="ui-btn ui-corner-all ui-btn-inherit ui-radio-off">Grill</label><input type="radio" name="radio-choice-h-1" id="radio-choice-h-1a" value="Grill"  data-cacheval="false">
+                        <label for="radio-choice-h-1b" class="ui-btn ui-corner-all ui-btn-inherit ui-radio-off">Fast food</label><input type="radio" name="radio-choice-h-1" id="radio-choice-h-1b" value="Fast food" data-cacheval="false">                               
+                        <label for="radio-choice-h-1c" class="ui-btn ui-corner-all ui-btn-inherit ui-radio-off">Sea food</label><input type="radio" name="radio-choice-h-1" id="radio-choice-h-1c" value="Sea food" data-cacheval="true">                     
+                    </div>
+                </fieldset>
+
+                <label for="">Date time:</label>
+                <input type="date"name="date" id="date" value="">
+
+                <label for="txtAverage">Average meal price per person (<span>&#36;</span>):</label>
+                <input type="number" id="txtAverage" data-clear-btn="true"/>
+                
+                <fieldset id="ServiceRate" data-role="controlgroup" data-type="horizontal" data-mini="true" class="ui-controlgroup ui-controlgroup-horizontal ui-corner-all">
+                <legend>Service rating:</legend>
+                        <label for="radio-choice-h-1d" class="ui-btn ui-corner-all ui-btn-inherit ui-radio-off">Need to improve</label><input type="radio" name="radio-choice-h-2" id="radio-choice-h-1d" value="Need to improve"  data-cacheval="false">
+                        <label for="radio-choice-h-1e" class="ui-btn ui-corner-all ui-btn-inherit ui-radio-off">OKAY</label><input type="radio" name="radio-choice-h-2" id="radio-choice-h-1e" value="OKAY" data-cacheval="false">                                
+                        <label for="radio-choice-h-1f" class="ui-btn ui-corner-all ui-btn-inherit ui-radio-off">Good</label><input type="radio" name="radio-choice-h-2" id="radio-choice-h-1f" value="Good" data-cacheval="true">
+                        <label for="radio-choice-h-1g" class="ui-btn ui-corner-all ui-btn-inherit ui-radio-off">Excellent</label><input type="radio" name="radio-choice-h-2" id="radio-choice-h-1g" value="Excellent" data-cacheval="true">                      
+                </fieldset>
+
+                <fieldset id="CleanRate" data-role="controlgroup" data-type="horizontal" data-mini="true" class="ui-controlgroup ui-controlgroup-horizontal ui-corner-all">
+                <legend>Cleanliness rating:</legend>
+                           <label for="radio-choice-h-1h" class="ui-btn ui-corner-all ui-btn-inherit ui-radio-off">Need to improve</label><input type="radio" name="radio-choice-h-3" id="radio-choice-h-1h" value="Need to improve"  data-cacheval="false">
+                           <label for="radio-choice-h-1i" class="ui-btn ui-corner-all ui-btn-inherit ui-radio-off">OKAY</label><input type="radio" name="radio-choice-h-3" id="radio-choice-h-1i" value="OKAY" data-cacheval="false">                                
+                           <label for="radio-choice-h-1j" class="ui-btn ui-corner-all ui-btn-inherit ui-radio-off">Good</label><input type="radio" name="radio-choice-h-3" id="radio-choice-h-1j" value="Good" data-cacheval="true">
+                           <label for="radio-choice-h-1k" class="ui-btn ui-corner-all ui-btn-inherit ui-radio-off">Excellent</label><input type="radio" name="radio-choice-h-3" id="radio-choice-h-1k" value="Excellent" data-cacheval="true">                      
+                </fieldset>
+
+                <fieldset id="FoodRate" data-role="controlgroup" data-type="horizontal" data-mini="true" class="ui-controlgroup ui-controlgroup-horizontal ui-corner-all">
+                <legend>Food quality rating:</legend>
+                           <label for="radio-choice-h-1l" class="ui-btn ui-corner-all ui-btn-inherit ui-radio-off">Need to improve</label><input type="radio" name="radio-choice-h-4" id="radio-choice-h-1l" value="Need to improve"  data-cacheval="false">
+                           <label for="radio-choice-h-1m" class="ui-btn ui-corner-all ui-btn-inherit ui-radio-off">OKAY</label><input type="radio" name="radio-choice-h-4" id="radio-choice-h-1m" value="OKAY" data-cacheval="false">                                
+                           <label for="radio-choice-h-1n" class="ui-btn ui-corner-all ui-btn-inherit ui-radio-off">Good</label><input type="radio" name="radio-choice-h-4" id="radio-choice-h-1n" value="Good" data-cacheval="true">
+                           <label for="radio-choice-h-1o" class="ui-btn ui-corner-all ui-btn-inherit ui-radio-off">Excellent</label><input type="radio" name="radio-choice-h-4" id="radio-choice-h-1o" value="Excellent" data-cacheval="true">                      
+                </fieldset>
+
+                <label for="txtNotes">Notes:</label>
+                <input type="text" id="txtNotes" data-clear-btn="true"/>
+
+                <label for="txtNameRp">Name of the reporter:</label>
+                <input type="text" id="txtNamerp" data-clear-btn="true"/>                   
+                <label for="btnAdd"></label>
+                <a class="ui-btn ui-shadow ui-corner-all ui-btn-icon-right ui-icon-plus" style="background: rgb(111, 0, 255); color: white;"
+                   id="btnAdd" onclick="addRating()">Add</a>
+            </div>
+        </form>
+
+        <div data-role="footer" data-position="fixed" >
+            <div data-role="navbar" >
+                <ul>
+                    <li><a href="#" class="ui-btn-active ui-state-persist ui-shadow ui-corner-all ui-btn-icon-top ui-icon-plus">Add Rate</a></li>
+                    <li><a href="#listrate" class="ui-shadow ui-corner-all ui-btn-icon-top ui-icon-grid">List rate</a></li>
+                </ul>
             </div>
         </div>
-        <script type="text/javascript" src="cordova.js"></script>
-        <script type="text/javascript" src="js/index.js"></script>
-    </body>
+    </div>
+    
+
+</div>
+<div data-role="page" id="listrate">
+    <div data-role="header" data-position="fixed">
+        <h1>Rating Restaurant</h1>
+    </div>
+    
+    <div data-role="main" class="ui-content">
+        <form class="ui-filterable">
+            <input data-type="search" id="txtKeyword"/>
+        </form>
+        <ul data-role="listview" data-filter="true"
+            data-input="#txtKeyword"
+            data-inset="true"
+            id="lstRatings"
+        >
+        </ul>
+        <!-- <div data-role="popup" id="popupUpdateDelete">
+            <div data-role="header">
+                <a class="ui-btn ui-icon-delete ui-btn-icon-notext ui-corner-all" data-rel="back"></a>
+                <h1>Options</h1>
+            </div>
+            <div data-role="main" class="ui-content">
+                <a class="ui-btn ui-icon-delete ui-btn-icon-left ui-btn-inline"
+                   onclick="deleteRating()"
+                >Delete</a>
+                <a class="ui-btn ui-icon-edit ui-btn-icon-left ui-btn-inline"
+                   href="#updatedialog"
+                >Update</a>
+            </div>
+        </div> -->
+    </div>
+    <div data-role="footer" data-position="fixed">
+        <div data-role="navbar">
+            <ul>
+                <li><a href="#addrate" class=" ui-shadow ui-corner-all ui-btn-icon-top ui-icon-plus" >Add Rate</a></li>
+                <li><a href="#" class="ui-btn-active ui-state-persist ui-shadow ui-corner-all ui-btn-icon-top ui-icon-grid">List rate</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+
+<div data-role="page" id="updatedialog">
+    <div data-role="header">
+        <a href="#listrate" class="ui-btn ui-shadow ui-corner-all ui-icon-back ui-btn-icon-notext ui-btn-inline"></a>
+        <h1>Update product</h1>
+        <a href="#listrate" style="background: rgb(0, 110, 255); color: white" id="btnUpdate" onclick="updateNoteRating()" >save</a>
+    </div>
+    <div data-role="main" class="ui-content">
+        <form>
+            <div class="ui-field-contain">
+                <div>
+                    <label for="txtNameU" style="text-align: right; clear: both; float: left; margin-right: 15px; margin-top: 2px;">Restaurant Name:</label>
+                <!-- <input type="text" id="txtNameU"  disabled/> -->
+                    <h3 id="txtNameU"></h3>
+                </div>
+                <label for="txtTypeU" style="text-align: right; clear: both; float: left; margin-right: 15px; margin-top: 2px;">Restaurant Type:</label>
+                <h3 id="txtTypeU"></h3>
+                <label for="txtdateU" style="text-align: right; clear: both; float: left; margin-right: 15px; margin-top: 2px;">Date time:</label>
+                <h3 id="txtdateU"></h3>
+                <label for="txtAverageU" style="text-align: right; clear: both; float: left; margin-right: 15px; margin-top: 2px;">Average meal price per person:</label>
+                <h3 id="txtAverageU" > </h3>
+                <label for="txtAverageRatingU" style="text-align: right; clear: both; float: left; margin-right: 15px; margin-top: 2px;">Average rating:</label>
+                <h3  id="txtAverageRatingU"></h3>
+                <label for="txtServiceU" style="text-align: right; clear: both; float: left; margin-right: 15px; margin-top: 2px;">Service rating:</label>
+                <h3 id="txtServiceU" ></h3>
+                <label for="txtCleanlinessU" style="text-align: right; clear: both; float: left; margin-right: 15px; margin-top: 2px;">Cleanliness rating:</label>
+                <h3 id="txtCleanlinessU"></h3>
+                <label for="txtFoodU" style="text-align: right; clear: both; float: left; margin-right: 15px; margin-top: 2px;">Food quality rating:</label>
+                <h3 id="txtFoodU"> </h3>
+                <label for="txtNamerpU" style="text-align: right; clear: both; float: left; margin-right: 15px; margin-top: 2px;">Name of reporter:</label>
+                <h3 id="txtNamerpU"> </h3>
+                <label for="txtNewNotes" >Notes:</label>
+                <input type="text" id="txtNewNotes" data-clear-btn="true"/>
+
+                <label for="btnUpdate"></label>
+                <br/>
+                <a class="ui-btn ui-icon-delete ui-btn-icon-left"
+                   id="btnUpdate" style="background: rgb(255, 0, 0); color: white;" onclick="deleteRating()">Delete</a>
+            </div>
+        </form>
+    </div>
+</div>
+</body>
 </html>
