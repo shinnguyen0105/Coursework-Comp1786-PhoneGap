@@ -1,5 +1,8 @@
 $(document).on("ready", function(){
     databaseHandler.createDatabase();
+    var dateTimeInput = document.getElementById("date");
+    var currentDay = new Date();
+    dateTimeInput.setAttribute("max", currentDay.toISOString().slice(0,10));
 });
 
 function addRating(){
@@ -12,6 +15,7 @@ function addRating(){
     var foodRate = $("#FoodRate :radio:checked").val();
     var namerp = $("#txtNamerp").val();
     var noterp = $("#txtNotes").val();
+
     if(!name){
         alert("Name is required");
     } else if (!type){
@@ -50,7 +54,6 @@ function addRating(){
         }
     }
 }
-
     var rateMessageState={
     id: -1,
     name: "",
@@ -141,8 +144,6 @@ function displayDetailRating(results) {
     $("#txtFoodU").text(results.rows[0].foodRate).val();
     $("#txtNamerpU").text(results.rows[0].namerp).val();
     $("#txtNewNotes").val(results.rows[0].noterp);
-    //  rateMessageState.date = results.rows[0].date;
-    //  rateMessageState.noterp = results.rows[0].noterp;
 }
 
 $(document).on("pagebeforeshow", "#listrate", function(){
@@ -157,11 +158,7 @@ function deleteRating(){
     }
     window.history.back();
 }
-// $(document).on("pagebeforeshow", "#updatedialog", function(){
-//     $("#txtNewName").val(rateMessageState.name);
-//     $("#txtNewNotes").val(rateMessageState.noterp);
 
-// });
 function updateNoteRating(){
     var newNoterp = $("#txtNewNotes").val();
     ratingHandler.updateNoteRating(rateMessageState.id, newNoterp );
