@@ -2,11 +2,11 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script type="text/javascript" src="cordova.js"></script>
     <link rel="stylesheet" href="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css">
     <link rel="stylesheet" href="css/index.css">
     <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
     <script src="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
-    <script type="text/javascript" src="cordova.js"></script>
     <script type="text/javascript" src="js/databaseHandler.js"></script>
     <script type="text/javascript" src="js/ratingHandler.js"></script>
     <script type="text/javascript" src="js/index.js"></script>
@@ -27,9 +27,9 @@
 
                 <fieldset id="RestaurantType" data-role="controlgroup" data-type="horizontal" class="ui-controlgroup ui-controlgroup-horizontal ui-corner-all">
                     <legend>Restaurant type:</legend>
-                        <label for="radio-choice-h-1a" class="ui-btn ui-corner-all ui-btn-inherit ui-radio-off">Grill</label><input type="radio" name="radio-choice-h-1" id="radio-choice-h-1a" value="Grill"  data-cacheval="false" >
-                        <label for="radio-choice-h-1b" class="ui-btn ui-corner-all ui-btn-inherit ui-radio-off">Fast food</label><input type="radio" name="radio-choice-h-1" id="radio-choice-h-1b" value="Fast food" data-cacheval="false" >                               
-                        <label for="radio-choice-h-1c" class="ui-btn ui-corner-all ui-btn-inherit ui-radio-off">Sea food</label><input type="radio" name="radio-choice-h-1" id="radio-choice-h-1c" value="Sea food" data-cacheval="true">                     
+                        <label for="radio-choice-h-1a" class="ui-btn ui-corner-all ui-btn-inherit ui-radio-off">Grill</label><input type="radio" name="radio-choice-h-1" id="radio-choice-h-1a" value="Grill"   >
+                        <label for="radio-choice-h-1b" class="ui-btn ui-corner-all ui-btn-inherit ui-radio-off">Fast food</label><input type="radio" name="radio-choice-h-1" id="radio-choice-h-1b" value="Fast food"  >                               
+                        <label for="radio-choice-h-1c" class="ui-btn ui-corner-all ui-btn-inherit ui-radio-off">Sea food</label><input type="radio" name="radio-choice-h-1" id="radio-choice-h-1c" value="Sea food" >                     
                     </div>
                 </fieldset>
 
@@ -41,26 +41,26 @@
                 
                 <fieldset id="ServiceRate" data-role="controlgroup" data-type="horizontal" data-mini="true" class="ui-controlgroup ui-controlgroup-horizontal ui-corner-all">
                 <legend>Service rating:</legend>
-                        <label for="radio-choice-h-1d" class="ui-btn ui-corner-all ui-btn-inherit ui-radio-off">Need to improve</label><input type="radio" name="radio-choice-h-2" id="radio-choice-h-1d" value="Need to improve"  data-cacheval="false">
-                        <label for="radio-choice-h-1e" class="ui-btn ui-corner-all ui-btn-inherit ui-radio-off">OKAY</label><input type="radio" name="radio-choice-h-2" id="radio-choice-h-1e" value="OKAY" data-cacheval="false">                                
-                        <label for="radio-choice-h-1f" class="ui-btn ui-corner-all ui-btn-inherit ui-radio-off">Good</label><input type="radio" name="radio-choice-h-2" id="radio-choice-h-1f" value="Good" data-cacheval="true">
-                        <label for="radio-choice-h-1g" class="ui-btn ui-corner-all ui-btn-inherit ui-radio-off">Excellent</label><input type="radio" name="radio-choice-h-2" id="radio-choice-h-1g" value="Excellent" data-cacheval="true">                      
+                        <label for="radio-choice-h-1d" class="ui-btn ui-corner-all ui-btn-inherit ui-radio-off">Need to improve</label><input type="radio" name="radio-service" id="radio-choice-h-1d" value="Need to improve" >
+                        <label for="radio-choice-h-1e" class="ui-btn ui-corner-all ui-btn-inherit ui-radio-off">OKAY</label><input type="radio" name="radio-service" id="radio-choice-h-1e" value="OKAY" >                                
+                        <label for="radio-choice-h-1f" class="ui-btn ui-corner-all ui-btn-inherit ui-radio-off">Good</label><input type="radio" name="radio-service" id="radio-choice-h-1f" value="Good" >
+                        <label for="radio-choice-h-1g" class="ui-btn ui-corner-all ui-btn-inherit ui-radio-off">Excellent</label><input type="radio" name="radio-service" id="radio-choice-h-1g" value="Excellent">                      
                 </fieldset>
 
                 <fieldset id="CleanRate" data-role="controlgroup" data-type="horizontal" data-mini="true" class="ui-controlgroup ui-controlgroup-horizontal ui-corner-all">
                 <legend>Cleanliness rating:</legend>
-                           <label for="radio-choice-h-1h" class="ui-btn ui-corner-all ui-btn-inherit ui-radio-off">Need to improve</label><input type="radio" name="radio-choice-h-3" id="radio-choice-h-1h" value="Need to improve"  data-cacheval="false">
-                           <label for="radio-choice-h-1i" class="ui-btn ui-corner-all ui-btn-inherit ui-radio-off">OKAY</label><input type="radio" name="radio-choice-h-3" id="radio-choice-h-1i" value="OKAY" data-cacheval="false">                                
-                           <label for="radio-choice-h-1j" class="ui-btn ui-corner-all ui-btn-inherit ui-radio-off">Good</label><input type="radio" name="radio-choice-h-3" id="radio-choice-h-1j" value="Good" data-cacheval="true">
-                           <label for="radio-choice-h-1k" class="ui-btn ui-corner-all ui-btn-inherit ui-radio-off">Excellent</label><input type="radio" name="radio-choice-h-3" id="radio-choice-h-1k" value="Excellent" data-cacheval="true">                      
+                           <label for="radio-choice-h-1h" class="ui-btn ui-corner-all ui-btn-inherit ui-radio-off">Need to improve</label><input type="radio" name="radio-clean" id="radio-choice-h-1h" value="Need to improve"  >
+                           <label for="radio-choice-h-1i" class="ui-btn ui-corner-all ui-btn-inherit ui-radio-off">OKAY</label><input type="radio" name="radio-clean" id="radio-choice-h-1i" value="OKAY" >                                
+                           <label for="radio-choice-h-1j" class="ui-btn ui-corner-all ui-btn-inherit ui-radio-off">Good</label><input type="radio" name="radio-clean" id="radio-choice-h-1j" value="Good" >
+                           <label for="radio-choice-h-1k" class="ui-btn ui-corner-all ui-btn-inherit ui-radio-off">Excellent</label><input type="radio" name="radio-clean" id="radio-choice-h-1k" value="Excellent" >                      
                 </fieldset>
 
                 <fieldset id="FoodRate" data-role="controlgroup" data-type="horizontal" data-mini="true" class="ui-controlgroup ui-controlgroup-horizontal ui-corner-all">
                 <legend>Food quality rating:</legend>
-                           <label for="radio-choice-h-1l" class="ui-btn ui-corner-all ui-btn-inherit ui-radio-off">Need to improve</label><input type="radio" name="radio-choice-h-4" id="radio-choice-h-1l" value="Need to improve"  data-cacheval="false">
-                           <label for="radio-choice-h-1m" class="ui-btn ui-corner-all ui-btn-inherit ui-radio-off">OKAY</label><input type="radio" name="radio-choice-h-4" id="radio-choice-h-1m" value="OKAY" data-cacheval="false">                                
-                           <label for="radio-choice-h-1n" class="ui-btn ui-corner-all ui-btn-inherit ui-radio-off">Good</label><input type="radio" name="radio-choice-h-4" id="radio-choice-h-1n" value="Good" data-cacheval="true">
-                           <label for="radio-choice-h-1o" class="ui-btn ui-corner-all ui-btn-inherit ui-radio-off">Excellent</label><input type="radio" name="radio-choice-h-4" id="radio-choice-h-1o" value="Excellent" data-cacheval="true">                      
+                           <label for="radio-choice-h-1l" class="ui-btn ui-corner-all ui-btn-inherit ui-radio-off">Need to improve</label><input type="radio" name="radio-food" id="radio-choice-h-1l" value="Need to improve"  >
+                           <label for="radio-choice-h-1m" class="ui-btn ui-corner-all ui-btn-inherit ui-radio-off">OKAY</label><input type="radio" name="radio-food" id="radio-choice-h-1m" value="OKAY" >                                
+                           <label for="radio-choice-h-1n" class="ui-btn ui-corner-all ui-btn-inherit ui-radio-off">Good</label><input type="radio" name="radio-food" id="radio-choice-h-1n" value="Good" >
+                           <label for="radio-choice-h-1o" class="ui-btn ui-corner-all ui-btn-inherit ui-radio-off">Excellent</label><input type="radio" name="radio-food" id="radio-choice-h-1o" value="Excellent" >                      
                 </fieldset>
 
                 <label for="txtNotes">Notes:</label>
