@@ -43,14 +43,15 @@ function addRating(){
         if(r==true){
             ratingHandler.addRating(name, type, date, average, serviceRate, cleanRate, foodRate, namerp, noterp);
             $("#txtName").val("");
-            $("#RestaurantType").removeAttr('checked');
+            // $("#RestaurantType").removeAttr('checked');
             $("#date").val("");
             $("#txtAverage").val("");
-            $("#ServiceRate").removeAttr('checked');
-            $("#CleanRate").removeAttr('checked');
-            $("#FoodRate").removeAttr('checked');
+            // $("#ServiceRate").removeAttr('checked');
+            // $("#CleanRate").removeAttr('checked');
+            // $("#FoodRate").removeAttr('checked');
             $("#txtNamerp").val("");
             $("#txtNotes").val("");
+            $('input[name=radio-service]').removeAttr('checked');
         }
     }
 }
